@@ -27,4 +27,8 @@ scrape_configs:
   scheme: http
   static_configs:
   - targets:
-    - imgproxy:8081
+    - imgproxy_1:8081
+    - imgproxy_2:8081
+    - imgproxy_3:8081
+    - imgproxy_4:8081
+    - imgproxy_5:8081

@@ -45,6 +45,20 @@ services:
     volumes:
       - ./grafana:/etc/grafana/provisioning/
 
+  image_generator:
+    image: node:20
+    container_name: image_generator
+    depends_on:
+      - imgproxy_1
+    networks:
+      - k6
+    volumes:
+      - ./img:/imgs:rw
+      - ./scripts:/scripts
+    entrypoint:
+      - node
+      - /scripts/CompressedImages.js
+
   k6:
     image: grafana/k6:master-with-browser
     container_name: k6
@@ -56,22 +70,26 @@ services:
       - K6_OUT=influxdb=http://influxdb:8086/k6
     volumes:
       - ./examples:/scripts
+    depends_on:
+      - image_generator
+      - imgproxy_1
     entrypoint: 
      - k6 
      - run 
      - /scripts/script.js
 
-  imgproxy:
+  imgproxy_1:
     image: darthsim/imgproxy:latest
-    container_name: imgproxy
+    container_name: imgproxy_1
     networks:
       - k6
     ports:
-      - "8080:9090"
-      - "8081:9091"
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
       - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
       - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
     volumes:
       - ./img:/imgs
