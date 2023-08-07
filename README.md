@@ -34,3 +34,13 @@ Go to Grafana
 
 `http://localhost:3000/d/6UWY8Afik/imgproxy-instrumentation`
 
+
+## Changing which tests to run
+
+### Which test to run
+
+Inside examples/script.js you can change the executed funtion inside the `default export function` this will change the test profile.
+
+### K6 parameters
+
+Inside examples/script.js you can change the options field to change the test parameters, information can be found (here)[https://k6.io/docs/using-k6/k6-options/reference/]
