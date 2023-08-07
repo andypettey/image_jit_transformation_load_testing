@@ -42,16 +42,6 @@ for (let i = 1; i <= 30; i++) {
     const destinationPathResizedCompressed = `/imgs/compressed/${i}-resized-compressed.jpg`;
     filesToBeDownloadedWithPaths.set(urlResizedCompressed, destinationPathResizedCompressed);
 
-    const urlK6 = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-compressed.jpg@jpg`
-    const destinationK6 = `/imgs/output/${i}-compressed.jpg`;
-    filesToBeDownloadedWithPaths.set(urlK6, destinationK6);
-
-    const urlK6Resized = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-resized.jpg@jpg`
-    const destinationK6Resized = `/imgs/output/${i}-resized.jpg`;
-    filesToBeDownloadedWithPaths.set(urlK6Resized, destinationK6Resized);
-    const urlK6ResizedCompressed = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-resized-compressed.jpg@jpg`
-    const destinationK6ResizedCompressed = `/imgs/output/${i}-resized-compressed.jpg`;
-    filesToBeDownloadedWithPaths.set(urlK6ResizedCompressed, destinationK6ResizedCompressed);
 
 }
 for (let [url, destinationPath] of filesToBeDownloadedWithPaths) {
@@ -68,3 +58,30 @@ for (let [url, destinationPath] of filesToBeDownloadedWithPaths) {
     }
 }
 
+
+let outputFilesToBeDownloadedWithPaths = new Map()
+
+for (let i = 1; i <= 30; i++) {
+    const urlK6 = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-compressed.jpg@jpg`
+    const destinationK6 = `/imgs/output/${i}-compressed.jpg`;
+    outputFilesToBeDownloadedWithPaths.set(urlK6, destinationK6);
+    const urlK6Resized = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-resized.jpg@jpg`
+    const destinationK6Resized = `/imgs/output/${i}-resized.jpg`;
+    outputFilesToBeDownloadedWithPaths.set(urlK6Resized, destinationK6Resized);
+    const urlK6ResizedCompressed = `http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${i}-resized-compressed.jpg@jpg`
+    const destinationK6ResizedCompressed = `/imgs/output/${i}-resized-compressed.jpg`;
+    outputFilesToBeDownloadedWithPaths.set(urlK6ResizedCompressed, destinationK6ResizedCompressed);
+}
+for (let [url, destinationPath] of outputFilesToBeDownloadedWithPaths) {
+    if (!fs.existsSync(destinationPath)) {
+        downloadFile(url, destinationPath, (error, message) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log(message);
+            }
+        });
+    } else{
+        console.log(`File downloaded already: ${destinationPath}`)
+    }
+}
