@@ -43,4 +43,4 @@ Inside examples/script.js you can change the executed funtion inside the `defaul
 
 ### K6 parameters
 
-Inside examples/script.js you can change the options field to change the test parameters, information can be found (here)[https://k6.io/docs/using-k6/k6-options/reference/]
+Inside examples/script.js you can change the options field to change the test parameters, information can be found [here](https://k6.io/docs/using-k6/k6-options/reference/)
