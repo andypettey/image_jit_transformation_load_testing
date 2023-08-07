@@ -1,3 +1,5 @@
 img/compressed/.DS_Store
 img/output/.DS_Store
 img/.DS_Store
+img/compressed/*
+img/output/*
