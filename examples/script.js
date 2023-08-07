@@ -20,7 +20,7 @@ export function setup(){
 }
 
 export default function () {
-  testOriginalImages()
+  testRandomImages()
 }
 
 function testRandomImages(){
