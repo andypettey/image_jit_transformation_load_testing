@@ -20,7 +20,7 @@ export function setup(){
 }
 
 export default function () {
-  testResizedCompressedImages()
+  testOriginalImages()
 }
 
 function testRandomImages(){
@@ -33,6 +33,11 @@ function testRandomImages(){
     option='resized-compressed'
   }
   http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-${option}.jpg@jpg`);
+}
+
+function testOriginalImages(){
+  let random = getRandomInt(29) + 1
+  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///${random}.jpg@jpg`);
 }
 
 function testCompressedImages(){
