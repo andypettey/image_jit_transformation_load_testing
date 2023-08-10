@@ -83,7 +83,87 @@ services:
     container_name: imgproxy_1
     networks:
       - k6
-    ports:
+    expose:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
+      - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
+    volumes:
+      - ./img:/imgs
+
+  imgproxy_2:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy_2
+    networks:
+      - k6
+    expose:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
+      - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
+    volumes:
+      - ./img:/imgs
+
+  imgproxy_3:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy_3
+    networks:
+      - k6
+    expose:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
+      - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
+    volumes:
+      - ./img:/imgs
+
+  imgproxy_4:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy_4
+    networks:
+      - k6
+    expose:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
+      - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
+    volumes:
+      - ./img:/imgs
+
+  imgproxy_5:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy_5
+    networks:
+      - k6
+    expose:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/imgs/
+      - IMGPROXY_PROMETHEUS_BIND=0.0.0.0:8081
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_WRITE_TIMEOUT=40
+    volumes:
+      - ./img:/imgs
+
+  imgproxy_6:
+    image: darthsim/imgproxy:latest
+    container_name: imgproxy_6
+    networks:
+      - k6
+    expose:
       - "8080:8080"
       - "8081:8081"
     environment:
