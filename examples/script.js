@@ -6,7 +6,7 @@ export const options = {
     closed_model: {
       executor: 'constant-vus',
       vus: 20,
-      duration: '1m',
+      duration: '5m',
     },
   },
   // stages: [{ target: 120, duration: '30s' }],
@@ -15,12 +15,14 @@ export const options = {
   // },
 };
 
+let nodeCount = 3;
+
 export function setup(){
 
 }
 
 export default function () {
-  testRandomImages()
+  testCompressedImages()
 }
 
 function testRandomImages(){
@@ -32,28 +34,39 @@ function testRandomImages(){
   } else if(choice === 2){
     option='resized-compressed'
   }
-  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-${option}.jpg@jpg`);
+  for(let i = 1; i <= nodeCount; i++){
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-${option}.jpg@jpg`);
+  }
 }
 
 function testOriginalImages(){
   let random = getRandomInt(29) + 1
-  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///${random}.jpg@jpg`);
+  for(let i = 1; i <= nodeCount; i++){
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///${random}.jpg@jpg`);
+  }
 }
 
 function testCompressedImages(){
   let random = getRandomInt(29) + 1
-  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-compressed.jpg@jpg`);
+  for(let i = 1; i <= nodeCount; i++){
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-compressed.jpg@jpg`);
+  }
 }
 
 
 function testResizedImages(){
   let random = getRandomInt(29) + 1
-  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-resized.jpg@jpg`);
+  for(let i = 1; i <= nodeCount; i++){
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-resized.jpg@jpg`);
+  }
 }
 
 function testResizedCompressedImages(){
   let random = getRandomInt(29) + 1
-  http.get(`http://imgproxy_1:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-resized-compressed.jpg@jpg`);
+  for(let i = 1; i <= nodeCount; i++){
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-resized-compressed.jpg@jpg`);
+    http.get(`http://imgproxy_${i}:8080/insecure/rs:fit:1920:1080/plain/local:///compressed/${random}-${option}.jpg@jpg`);
+  }
 }
 
 function getRandomInt(max) {
